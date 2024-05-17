@@ -12,6 +12,13 @@ const DefaultData = require("./defaultdata");
 const cors = require("cors");
 const router = require("./routes/router");
 
+const corsOptions = {
+  origin: 'https://amazon-clone-mern-stack-by-piyush.onrender.com',
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 app.use(cookieParser(""));
