@@ -3,7 +3,7 @@ const router = new express.Router();
 const products = require("../models/productsSchema");
 const User = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
-const authenicate = require("../middleware/authenticate");
+// const authenicate = require("../middleware/authenticate");
 
 // router.get("/",(req,res)=>{
 //     res.send("this is testing routes");
@@ -18,7 +18,7 @@ router.get("/getproducts", async (req, res) => {
         console.log(producstdata + "data mila hain");
         res.status(201).json(producstdata);
     } catch (error) {
-        console.log("error" + erroir.message);
+        console.log("error" + error.message);
     }
 });
 
@@ -125,7 +125,7 @@ router.get("/getproductsone/:id", async (req, res) => {
 
 
 // adding the data into cart
-router.post("/addcart/:id", authenicate, async (req, res) => {
+router.post("/addcart/:id", async (req, res) => {
 
     try {
         console.log("perfect 6");
@@ -152,7 +152,7 @@ router.post("/addcart/:id", authenicate, async (req, res) => {
 
 
 // get data into the cart
-router.get("/cartdetails", authenicate, async (req, res) => {
+router.get("/cartdetails", async (req, res) => {
     try {
         const buyuser = await User.findOne({ _id: req.userID });
         console.log(buyuser + "user hain buy pr");
@@ -165,7 +165,7 @@ router.get("/cartdetails", authenicate, async (req, res) => {
 
 
 // get user is login or not
-router.get("/validuser", authenicate, async (req, res) => {
+router.get("/validuser", async (req, res) => {
     try {
         const validuserone = await User.findOne({ _id: req.userID });
         console.log(validuserone + "user hain home k header main pr");
@@ -178,7 +178,7 @@ router.get("/validuser", authenicate, async (req, res) => {
 
 // remove item from the cart
 
-router.get("/remove/:id", authenicate, async (req, res) => {
+router.get("/remove/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -198,7 +198,7 @@ router.get("/remove/:id", authenicate, async (req, res) => {
 
 // for userlogout
 
-router.get("/logout", authenicate, async (req, res) => {
+router.get("/logout", async (req, res) => {
     try {
         req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
             return curelem.token !== req.token
